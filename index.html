@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Master 3D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dice Master 3D</h1>
+        
+        <div class="dice-scene">
+            <div class="dice" id="dice">
+                <div class="face front">1</div>
+                <div class="face back">6</div>
+                <div class="face right">2</div>
+                <div class="face left">5</div>
+                <div class="face top">3</div>
+                <div class="face bottom">4</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="rollDice(6)">Rolar D6</button>
+            <button onclick="rollDice(20)">Rolar D20</button>
+        </div>
+        
+        <div class="result" id="resultText">Resultado: -</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
