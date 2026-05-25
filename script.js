@@ -1,46 +1,46 @@
-function rollDice(type) {
-    const dice = document.getElementById('dice');
-    const resultText = document.getElementById('resultText');
+const diceDisplay = document.getElementById('diceDisplay');
+const diceValue = document.getElementById('diceValue');
+const historyList = document.getElementById('historyList');
+
+function roll(sides) {
+    // 1. Efeito visual de início
+    diceDisplay.classList.add('rolling');
+    diceValue.style.opacity = '0.3';
     
-    // Inicia animação visual de rotação infinita
-    dice.classList.add('animate');
-    resultText.innerText = "Rolando...";
-
+    // 2. Simulação de tempo de rolagem
     setTimeout(() => {
-        // Gera o número aleatório
-        const result = Math.floor(Math.random() * type) + 1;
+        const result = Math.floor(Math.random() * sides) + 1;
         
-        // Remove animação de rotação infinita
-        dice.classList.remove('animate');
+        // 3. Atualiza valor e remove animação
+        diceDisplay.classList.remove('rolling');
+        diceValue.innerText = result;
+        diceValue.style.opacity = '1';
         
-        // Define a rotação final baseada no resultado (Exemplo para D6)
-        // Nota: Para simplificar, usamos rotações fixas para o D6 visual
-        if (type === 6) {
-            applyD6Rotation(result);
-        }
-
-        resultText.innerText = `Resultado: ${result}`;
-        
-        // Efeito especial se tirar o valor máximo (Crítico)
-        if (result === type) {
-            resultText.style.color = "#f9d423"; // Dourado
-            resultText.innerText += " - CRÍTICO!";
+        // 4. Feedback de Crítico (Dourado para valor máximo)
+        if (result === sides) {
+            diceDisplay.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+            triggerShakeEffect();
         } else {
-            resultText.style.color = "#4ecca3";
+            diceDisplay.style.background = 'linear-gradient(135deg, #6366f1, #4338ca)';
         }
 
-    }, 1000); // Tempo da "rolagem"
+        addToHistory(sides, result);
+    }, 600);
 }
 
-function applyD6Rotation(number) {
-    const dice = document.getElementById('dice');
-    const rotations = {
-        1: 'rotateX(0deg) rotateY(0deg)',
-        6: 'rotateX(180deg) rotateY(0deg)',
-        2: 'rotateX(0deg) rotateY(-90deg)',
-        5: 'rotateX(0deg) rotateY(90deg)',
-        3: 'rotateX(-90deg) rotateY(0deg)',
-        4: 'rotateX(90deg) rotateY(0deg)'
-    };
-    dice.style.transform = rotations[number];
+function addToHistory(sides, result) {
+    const li = document.createElement('li');
+    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    li.innerHTML = `<span>D${sides}: <strong>${result}</strong></span> <small>${time}</small>`;
+    historyList.prepend(li); // Adiciona no topo
+}
+
+function clearHistory() {
+    historyList.innerHTML = '';
+}
+
+function triggerShakeEffect() {
+    diceDisplay.style.transform = 'scale(1.2)';
+    setTimeout(() => diceDisplay.style.transform = 'scale(1)', 200);
 }
