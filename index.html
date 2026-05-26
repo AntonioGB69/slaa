@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Dice Roller</title>
+    <title>Epic Dice Roller</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,10 +16,19 @@
         </aside>
 
         <main class="dice-arena">
+            <div class="modifier-box">
+                <label for="modifier">Modificador (Bônus):</label>
+                <div class="mod-input">
+                    <span class="plus">+</span>
+                    <input type="number" id="modifier" value="0">
+                </div>
+            </div>
+
             <div class="dice-wrapper">
-                <div id="diceDisplay" class="dice-shape d20">
+                <div id="diceDisplay" class="dice-shape">
                     <span id="diceValue">20</span>
                 </div>
+                <div id="totalDisplay" class="total-text">Total: 20</div>
             </div>
 
             <div class="controls-grid">
